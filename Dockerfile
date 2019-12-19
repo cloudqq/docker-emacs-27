@@ -202,6 +202,11 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
 
 RUN dpkg -l | grep libboost
 
+ENV EMACS_BRANCH="master"
+ENV EMACS_VERSION="master"
+
+COPY --from=dev /root/.emacs.d /root/.emacs.d
+COPY --from=dev /usr/local /usr/local
 
 # install docker client
 RUN docker_url=https://download.docker.com/linux/static/stable/x86_64 \
@@ -219,6 +224,11 @@ COPY asEnvUser /usr/local/sbin/
 # Only for sudoers
 RUN chown root /usr/local/sbin/asEnvUser \
   && chmod 700  /usr/local/sbin/asEnvUser
+
+
+
+
+
 
 
 ENV UNAME="cloudqq" \
