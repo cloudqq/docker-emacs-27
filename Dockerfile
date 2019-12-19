@@ -58,7 +58,7 @@ ENV UNAME="cloudqq" \
   SHELL="/bin/bash"
 
 
-RUN apt-get install -y locales
+RUN apt-get install -y locales sudo
 RUN echo 'LC_ALL=zh_CN.UTF-8' > /etc/default/locale && \
   echo 'LANG=zh_CN.UTF-8' >> /etc/default/locale && \
   locale-gen zh_CN.UTF-8
