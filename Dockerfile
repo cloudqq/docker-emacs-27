@@ -190,6 +190,9 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
   net-tools \
   netcat \
   telnet \
+  gpm imagemagick libacl1 libasound2 libcanberra-gtk3-module liblcms2-2 libdbus-1-3 \
+  libgif7 libgnutls30 libgtk-3-0 libjansson4 libjpeg8 libm17n-0 libpng16-16 librsvg2-2 libsm6 \
+  libtiff5 libx11-xcb1 libxml2 libxpm4 openssh-client texinfo \
   libboost-dev \
   libboost-filesystem-dev \
   libboost-regex-dev \
