@@ -154,8 +154,6 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
   && apt-get install \
   bash \
   build-essential \
-  emacs26 \
-  emacs26-el \
   fontconfig \
   git \
   gzip \
