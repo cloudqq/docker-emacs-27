@@ -149,9 +149,6 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
   && apt-get update \
   && apt-get install  software-properties-common \
   apt-utils \
-  && apt-add-repository ppa:kelleyk/emacs \
-  && apt-get update \
-  && apt-get install \
   bash \
   build-essential \
   fontconfig \
