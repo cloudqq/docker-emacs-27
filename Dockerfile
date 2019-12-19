@@ -35,3 +35,40 @@ RUN apt-get install \
  
 RUN cd emacs && ./autogen.sh && ./configure && make
 RUN cd emacs &&  make install
+
+
+RUN git clone https://github.com/ncopa/su-exec.git /tmp/su-exec \
+  && cd /tmp/su-exec \
+  && make \
+  && chmod 770 su-exec \
+  && mv ./su-exec /usr/local/sbin/ \
+
+COPY asEnvUser /usr/local/sbin/
+
+# Only for sudoers
+RUN chown root /usr/local/sbin/asEnvUser \
+  && chmod 700  /usr/local/sbin/asEnvUser
+
+
+ENV UNAME="cloudqq" \
+  GNAME="cloudqq" \
+  UHOME="/home/cloudqq" \
+  UID="1000" \
+  GID="1000" \
+  WORKSPACE="/mnt/workspace" \
+  SHELL="/bin/bash"
+
+RUN echo 'LC_ALL=zh_CN.UTF-8' > /etc/default/locale && \
+  echo 'LANG=zh_CN.UTF-8' >> /etc/default/locale && \
+  locale-gen zh_CN.UTF-8
+
+ENV LC_CTYPE zh_CN.UTF-8
+
+WORKDIR "${WORKSPACE}"
+
+ENTRYPOINT ["asEnvUser"]
+CMD ["bash", "-c", "emacs; /bin/bash"]
+
+
+
+
