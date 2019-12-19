@@ -36,12 +36,11 @@ RUN apt-get install \
 RUN cd emacs && ./autogen.sh && ./configure && make
 RUN cd emacs &&  make install
 
-
 RUN git clone https://github.com/ncopa/su-exec.git /tmp/su-exec \
   && cd /tmp/su-exec \
   && make \
   && chmod 770 su-exec \
-  && mv ./su-exec /usr/local/sbin/ \
+  && mv ./su-exec /usr/local/sbin/ 
 
 COPY asEnvUser /usr/local/sbin/
 
