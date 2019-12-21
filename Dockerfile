@@ -27,14 +27,6 @@ RUN \
   && ./target/release/sk --version \
   && cp ./target/release/sk /usr/local/bin
 
-ARG VERSION=latest
-FROM rust:$VERSION
-RUN \
-  git clone --depth 1 https://github.com/lotabout/skim.git \
-  && cd skim \
-  && cargo build --release \
-  && ./target/release/sk --version \
-  && cp ./target/release/sk /usr/local/bin
 # end of build su-exec
 
 
