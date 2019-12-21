@@ -29,6 +29,11 @@ RUN \
 
 # end of build su-exec
 
+FROM golang:latest AS fzfbuilder
+RUN \
+  git clone --depth 1 https://github.com/junegunn/fzf.git  \
+  && cd fzf \
+  && make release && make install && pwd
 
 # build rime
 FROM ubuntu:latest AS builder3
@@ -264,6 +269,9 @@ RUN (git clone \
 COPY windows "$FONT_HOME/windows"
 RUN fc-cache -f -v "$FONT_HOME/windows"
 
+# fzf
+#
+COPY --from=fzfbuilder /go/fzf/bin/fzf /usr/local/bin
 
 # build rg
 COPY --from=builder1 /usr/local/bin /usr/local/bin
