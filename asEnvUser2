@@ -11,10 +11,6 @@
 ## NOTE: ^^^^ Those are default values only in docker-emacs
 ## NOTE: The user will have "no password" sudo privilege
 
-env
-
-echo "${UNAME}"
-id
 
 ## Create user if it doesn't exists
 if ! id "${UNAME}" >/dev/null 2>&1; then
@@ -27,7 +23,6 @@ fi
 ## Make sure that user is sudoer
 ## we have install package `sudo`
 if [ ! -f "/etc/sudoers.d/${UNAME}" ]; then
-    ls -lah /etc/sudoers.d
 	echo "${UNAME} ALL=(ALL) NOPASSWD: ALL" > "/etc/sudoers.d/${UNAME}"
 	chmod 0440 "/etc/sudoers.d/${UNAME}"
 fi
@@ -40,7 +35,6 @@ elif [[ ${u_group} != *"${UNAME}"* ]]; then
 	sed -i -e "s/${u_group}/${u_group},${UNAME}/g" /etc/group
 fi
 
-echo "debug 1"
 ## Make sure that the user owns home directory
 if [ -d "${UHOME}" ]
 then
@@ -52,8 +46,6 @@ else
 	mkdir -p "${UHOME}"
 	chown "${UID}":"${GID}" "${UHOME}"
 fi
-
-echo "debug 2"
 
 mkdir -p "${WORKSPACE}"
 chown "${UID}":"${GID}" "${WORKSPACE}"

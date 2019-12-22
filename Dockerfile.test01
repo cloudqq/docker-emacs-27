@@ -32,17 +32,5 @@ COPY asEnvUser2 /usr/local/sbin/
 RUN chown root /usr/local/sbin/asEnvUser2 \
   && chmod 700  /usr/local/sbin/asEnvUser2
 
-
-RUN ls -lah /usr/local/sbin
-#ENV UNAME="cloudqq" \
-#  GNAME="cloudqq" \
-#  UHOME="/home/cloudqq" \
-#  UID="1000" \
-#  GID="1000" \
-#  WORKSPACE="/mnt/workspace" \
-#  SHELL="/bin/bash"
-
-#WORKDIR "${WORKSPACE}"
-
 ENTRYPOINT ["/usr/local/sbin/asEnvUser2"]
 CMD ["sh"]

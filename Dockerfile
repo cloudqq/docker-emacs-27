@@ -230,29 +230,12 @@ RUN docker_url=https://download.docker.com/linux/static/stable/x86_64 \
   && curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose \
   && chmod +x /usr/local/bin/docker-compose
 
-
-
 COPY --from=builder4 /su-exec/su-exec /usr/local/sbin
 COPY asEnvUser /usr/local/sbin/
 
 # Only for sudoers
 RUN chown root /usr/local/sbin/asEnvUser \
   && chmod 700  /usr/local/sbin/asEnvUser
-
-
-
-
-
-
-
-ENV UNAME="cloudqq" \
-  GNAME="cloudqq" \
-  UHOME="/home/cloudqq" \
-  UID="1000" \
-  GID="1000" \
-  WORKSPACE="/mnt/workspace" \
-  SHELL="/bin/bash"
-
 
 # install fonts
 ENV FONT_HOME="/usr/share/fonts"
