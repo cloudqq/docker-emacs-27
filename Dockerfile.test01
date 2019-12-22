@@ -1,0 +1,48 @@
+
+FROM ubuntu:latest AS builder4
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g" /etc/apt/sources.list \
+  && echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
+  && apt-get update \
+  && apt-get install build-essential git
+
+RUN git clone https://github.com/ncopa/su-exec.git /su-exec \
+  && cd /su-exec \
+  && make \
+  && chmod 770 su-exec
+
+
+FROM ubuntu:18.04
+MAINTAINER cloudqq <cloudqq@gmail.com>
+
+ENV NO_AT_BRIDGE=1
+ENV DEBIAN_FRONTEND noninteractive
+
+
+RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g" /etc/apt/sources.list \
+  && echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
+  && apt-get update \
+  && apt-get install sudo
+
+COPY --from=builder4 /su-exec/su-exec /usr/local/sbin
+COPY asEnvUser2 /usr/local/sbin/
+
+RUN chown root /usr/local/sbin/asEnvUser2 \
+  && chmod 700  /usr/local/sbin/asEnvUser2
+
+
+RUN ls -lah /usr/local/sbin
+#ENV UNAME="cloudqq" \
+#  GNAME="cloudqq" \
+#  UHOME="/home/cloudqq" \
+#  UID="1000" \
+#  GID="1000" \
+#  WORKSPACE="/mnt/workspace" \
+#  SHELL="/bin/bash"
+
+#WORKDIR "${WORKSPACE}"
+
+ENTRYPOINT ["/usr/local/sbin/asEnvUser2"]
+CMD ["sh"]
