@@ -285,8 +285,6 @@ RUN echo 'LC_ALL=zh_CN.UTF-8' > /etc/default/locale && \
 
 ENV LC_CTYPE zh_CN.UTF-8
 
-WORKDIR "${WORKSPACE}"
-
 ENTRYPOINT ["asEnvUser"]
 CMD ["bash", "-c", "emacs; /bin/bash"]
 
