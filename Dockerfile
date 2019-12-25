@@ -213,7 +213,8 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
   libboost-system-dev \
   libboost-locale-dev \
   libgoogle-glog-dev \
-  libgtest-dev systemd
+  libgtest-dev \
+  systemd \
   && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
 
 RUN dpkg -l | grep libboost
