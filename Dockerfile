@@ -161,6 +161,8 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
   apt-utils \
   bash \
   build-essential \
+  autoconf \
+  libx11-dev \
   fontconfig \
   git \
   gzip \
@@ -280,6 +282,8 @@ RUN curl -fsSL https://git.io/rime-install | bash -s -- prelude essay luna-pinyi
 
 RUN curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl && chmod +x /usr/local/bin/youtube-dl
 
+RUN git clone https://github.com/lolilolicon/xrectsel.git && cd xrectsel && ./bootstrap && ./configure && make && make install
+
 RUN echo 'LC_ALL=zh_CN.UTF-8' > /etc/default/locale && \
   echo 'LANG=zh_CN.UTF-8' >> /etc/default/locale && \
   locale-gen zh_CN.UTF-8
@@ -288,7 +292,3 @@ ENV LC_CTYPE zh_CN.UTF-8
 
 ENTRYPOINT ["asEnvUser"]
 CMD ["bash", "-c", "emacs; /bin/bash"]
-
-
-
-
