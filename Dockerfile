@@ -162,7 +162,6 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
   bash \
   build-essential \
   autoconf \
-  automake \
   libx11-dev \
   fontconfig \
   git \
@@ -215,7 +214,6 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
   libboost-locale-dev \
   libgoogle-glog-dev \
   libgtest-dev systemd \
-  && apt-get purge build-essential make cmake libpng-dev libz-dev automake \
   && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
 
 RUN dpkg -l | grep libboost
