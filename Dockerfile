@@ -162,6 +162,7 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
   bash \
   build-essential \
   autoconf \
+  automake \
   libx11-dev \
   fontconfig \
   git \
@@ -195,7 +196,6 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
   libpoppler-glib-dev \
   libpoppler-glib-dev \
   libpoppler-private-dev \
-  automake \
   fasd \
   isync \
   notmuch \
