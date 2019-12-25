@@ -162,6 +162,7 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
   bash \
   build-essential \
   autoconf \
+  automake \
   libx11-dev \
   fontconfig \
   git \
