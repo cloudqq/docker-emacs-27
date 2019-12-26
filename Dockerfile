@@ -207,6 +207,7 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
   libtiff5 libx11-xcb1 libxml2 libxpm4 openssh-client texinfo \
   default-jdk \
   byzanz \
+  xdotool \
   libboost-dev \
   libboost-filesystem-dev \
   libboost-regex-dev \
