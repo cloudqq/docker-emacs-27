@@ -209,7 +209,7 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
   byzanz \
   xdotool \
   ffmpeg \
-  maildir-utils \
+  mu4e \
   libboost-dev \
   libboost-filesystem-dev \
   libboost-regex-dev \
