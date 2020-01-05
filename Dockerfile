@@ -208,6 +208,7 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
   default-jdk \
   byzanz \
   xdotool \
+  ffmpeg \
   libboost-dev \
   libboost-filesystem-dev \
   libboost-regex-dev \
