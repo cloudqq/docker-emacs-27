@@ -231,7 +231,8 @@ RUN python3.8 --version && pip3 --version
 ENV EMACS_BRANCH="master"
 ENV EMACS_VERSION="master"
 
-RUN pip install --upgrade --pip && pip --version
+RUN curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py && python3.8 get-pip.py
+RUN pip install --upgrade pip && pip --version
 
 RUN pip install PyMuPDF dbus-python python-xlib grip qrcode xlib pyqt5 pyqtwebengine feedparser
 
