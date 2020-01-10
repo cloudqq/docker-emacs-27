@@ -26,7 +26,7 @@ stages:
       displayName: Build an emacs 28 eaf
       inputs:
         command: buildAndPush
-        dockerfile: 'Dockerfile'
+        dockerfile: 'Dockerfile.ubuntu'
         containerRegistry: 'dockerhub'
         repository: cloudqq/emacs-docker-28
         imageName: "$(Build.Repository.Name):latest"
