@@ -222,11 +222,10 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
   systemd \
   python3.8 \
   python3.8-dev \
-  python3.8-distutils
+  python3.8-distutils \
   && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
 
 RUN dpkg -l | grep libboost
-RUN python3.8 --version && pip3 --version
 
 ENV EMACS_BRANCH="master"
 ENV EMACS_VERSION="master"
