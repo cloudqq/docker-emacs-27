@@ -133,7 +133,7 @@ RUN git clone https://git.savannah.gnu.org/git/emacs.git /opt/emacs
 
 RUN cd /opt/emacs && \
     ./autogen.sh && \
-    ./configure --with-modules && \
+    ./configure --with-modules --with-xwidgets && \
     make -j 8 && \
     make install
 
