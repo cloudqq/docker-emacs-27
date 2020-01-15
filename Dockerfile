@@ -124,7 +124,7 @@ RUN apt-get update && \
             texinfo \
             xaw3dg-dev \
   zlib1g-dev \
-  libwebkit2gtk \
+  libwebkit2gtk-4.0-37 \
     && rm -rf /var/lib/apt/lists/*
 
 ENV EMACS_BRANCH="master"
