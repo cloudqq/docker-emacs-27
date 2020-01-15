@@ -123,7 +123,8 @@ RUN apt-get update && \
             python \
             texinfo \
             xaw3dg-dev \
-            zlib1g-dev \
+  zlib1g-dev \
+  libwebkit2gtk \
     && rm -rf /var/lib/apt/lists/*
 
 ENV EMACS_BRANCH="master"
