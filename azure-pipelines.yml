@@ -29,7 +29,7 @@ stages:
         dockerfile: 'Dockerfile'
         containerRegistry: 'dockerhub'
         repository: cloudqq/emacs-docker-27
-        imageName: "$(Build.Repository.Name):latest"
+        imageName: "$(Build.Repository.Name):20200116"
         includeLatestTag: true
         tags: |
-          latest
+          20200116
