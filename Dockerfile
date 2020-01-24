@@ -212,6 +212,7 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
   xdotool \
   ffmpeg \
   mu4e \
+  fonts-firacode \
   libboost-dev \
   libboost-filesystem-dev \
   libboost-regex-dev \
