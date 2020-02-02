@@ -1,0 +1,110 @@
+#+TITLE: build
+
+* build rust image
+
+#+BEGIN_SRC sh :results value raw
+
+docker build \
+    --build-arg http_proxy=http://10.3.4.10:1088 \
+    --build-arg https_proxy=http://10.3.4.10:1088 \
+    -f rust/Dockerfile . \
+    -t testrust
+
+#+END_SRC
+
+#+RESULTS:
+Sending build context to Docker daemon  277.1MB
+Step 1/5 : FROM ubuntu:18.04
+ ---> 549b9b86cb8d
+Step 2/5 : MAINTAINER cloudqq <cloudqq@gmail.com>
+ ---> Using cache
+ ---> dfc721655daa
+Step 3/5 : RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g" /etc/apt/sources.list   && echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf   && apt-get update   && apt-get install build-essential git curl wget
+ ---> Using cache
+ ---> b24c6afaa36e
+Step 4/5 : ENV RUST_VERSION 1.40.0
+ ---> Using cache
+ ---> ad87f37f9988
+Step 5/5 : RUN curl https://sh.rustup.rs -sSf  | sh -s -- -y
+ ---> Running in e6fdbf49f09b
+[91minfo: downloading installer
+[0m[91minfo: profile set to 'default'
+info: default host triple is x86_64-unknown-linux-gnu
+info: syncing channel updates for 'stable-x86_64-unknown-linux-gnu'
+[0m[91minfo: latest update on 2019-12-19, rust version 1.40.0 (73528e339 2019-12-16)
+info: downloading component 'cargo'
+[0m[91minfo: downloading component 'clippy'
+[0m[91minfo: downloading component 'rust-docs'
+[0m[91minfo: downloading component 'rust-std'
+[0m[91minfo: downloading component 'rustc'
+[0m[91minfo: downloading component 'rustfmt'
+[0m[91minfo: installing component 'cargo'
+[0m[91minfo: installing component 'clippy'
+[0m[91minfo: installing component 'rust-docs'
+[0m[91minfo: installing component 'rust-std'
+[0m[91minfo: installing component 'rustc'
+[0m[91minfo: installing component 'rustfmt'
+[0m[91minfo: default toolchain set to 'stable'
+[0m
+  stable installed - rustc 1.40.0 (73528e339 2019-12-16)
+
+
+Rust is installed now. Great!
+
+To get started you need Cargo's bin directory ($HOME/.cargo/bin) in your PATH
+environment variable. Next time you log in this will be done
+automatically.
+
+To configure your current shell run source $HOME/.cargo/env
+Removing intermediate container e6fdbf49f09b
+ ---> 0783d3158539
+Successfully built 0783d3158539
+Successfully tagged testrust:latest
+Sending build context to Docker daemon  277.1MB
+Step 1/5 : FROM ubuntu:18.04
+ ---> 549b9b86cb8d
+Step 2/5 : MAINTAINER cloudqq <cloudqq@gmail.com>
+ ---> Using cache
+ ---> dfc721655daa
+Step 3/5 : RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g" /etc/apt/sources.list   && echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf   && apt-get update   && apt-get install build-essential git curl wget
+ ---> Using cache
+ ---> b24c6afaa36e
+Step 4/5 : ENV RUST_VERSION 1.40.0
+ ---> Using cache
+ ---> ad87f37f9988
+Step 5/5 : RUN curl https://sh.rustup.rs -sSf -y | sh
+ ---> Using cache
+ ---> 2141e2329395
+Successfully built 2141e2329395
+Successfully tagged testrust:latest
+Sending build context to Docker daemon  277.1MB
+Step 1/5 : FROM ubuntu:18.04
+ ---> 549b9b86cb8d
+Step 2/5 : MAINTAINER cloudqq <cloudqq@gmail.com>
+ ---> Using cache
+ ---> dfc721655daa
+Step 3/5 : RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g" /etc/apt/sources.list   && echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf   && apt-get update   && apt-get install build-essential git curl wget
+ ---> Using cache
+ ---> b24c6afaa36e
+Step 4/5 : ENV RUST_VERSION 1.40.0
+ ---> Using cache
+ ---> ad87f37f9988
+Step 5/5 : RUN curl https://sh.rustup.rs -sSf -y | sh
+ ---> Using cache
+ ---> 2141e2329395
+Successfully built 2141e2329395
+* lisp
+#+BEGIN_SRC lisp
+
+(setenv "PATH"
+(concat (getenv "PATH") ":/usr/local/rust/.cargo/bin:/usr/local/rust/.rustup/bin")
+)
+
+(setq exec-path
+ (append exec-path '("/usr/local/rust/.cargo/bin"))
+)
+(setq exec-path
+ (append exec-path '("/usr/local/rust/.rustup/bin"))
+)
+
+#+END_SRC

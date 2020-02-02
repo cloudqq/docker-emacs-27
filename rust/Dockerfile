@@ -8,5 +8,11 @@ RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g
 
 
 ENV RUST_VERSION 1.40.0
+ENV CARGO_HOME /usr/local/rust-build/.cargo
+ENV RUSTUP_HOME /usr/local/rust-build/.rustup
+ENV PATH=${CARGO_HOME}/bin:${RUSTUP_HOME}/bin:${PATH}
 
-RUN curl https://sh.rustup.rs -sSf | sh
+RUN curl https://sh.rustup.rs -sSf  | sh -s -- -y
+RUN rustup default nightly && rustup update
+RUN cargo install racer
+RUN rustup component add rust-src
