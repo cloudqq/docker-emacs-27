@@ -222,6 +222,7 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
   libgtest-dev \
   systemd \
   mingw-w64 \
+  libwebkit2gtk-4.0 \
   && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
 
 RUN dpkg -l | grep libboost
