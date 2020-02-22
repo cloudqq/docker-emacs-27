@@ -131,7 +131,7 @@ RUN apt-get update && \
 ENV EMACS_BRANCH="master"
 ENV EMACS_VERSION="master"
 
-RUN git clone https://git.savannah.gnu.org/git/emacs.git /opt/emacs
+RUN git clone https://git.savannah.gnu.org/git/emacs.git /opt/emacs && cd /opt/emacs && git checkout emacs-27
 
 RUN cd /opt/emacs && \
     ./autogen.sh && \
