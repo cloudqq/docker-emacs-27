@@ -14,7 +14,7 @@ RUN git clone https://github.com/ncopa/su-exec.git /su-exec \
 
 
 FROM ubuntu:18.04
-MAINTAINER cloudqq <cloudqq@gmail.com>
+LABEL maintainer="cloudqq@gmail.com"
 
 ENV DEBIAN_FRONTEND noninteractive
 

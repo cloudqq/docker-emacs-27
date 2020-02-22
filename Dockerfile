@@ -221,6 +221,7 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
   libgoogle-glog-dev \
   libgtest-dev \
   systemd \
+  mingw-w64 \
   && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
 
 RUN dpkg -l | grep libboost
