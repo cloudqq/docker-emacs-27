@@ -79,11 +79,7 @@ RUN git clone  https://gitlab.com/liberime/liberime.git
 WORKDIR liberime/
 RUN make
 
-
-
-
 FROM ubuntu:18.04 as dev
-
 
 RUN apt-get update && \
     apt-get install -y \
@@ -128,10 +124,7 @@ RUN apt-get update && \
   libwebkit2gtk-4.0-dev \
     && rm -rf /var/lib/apt/lists/*
 
-ENV EMACS_BRANCH="master"
-ENV EMACS_VERSION="master"
-
-RUN git clone https://git.savannah.gnu.org/git/emacs.git /opt/emacs && cd /opt/emacs && git checkout emacs-27
+RUN git clone https://git.savannah.gnu.org/git/emacs.git /opt/emacs
 
 RUN cd /opt/emacs && \
     ./autogen.sh && \
@@ -222,12 +215,10 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
   libgtest-dev \
   systemd \
   libwebkit2gtk-4.0 \
+  mingw-w64 \
   && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
 
 RUN dpkg -l | grep libboost
-
-ENV EMACS_BRANCH="master"
-ENV EMACS_VERSION="master"
 
 COPY --from=dev /root/.emacs.d /root/.emacs.d
 COPY --from=dev /usr/local /usr/local
