@@ -44,7 +44,9 @@ RUN make install
 ENV rime_dir=/usr/local/share/rime
 RUN curl -fsSL https://git.io/rime-install | bash
 
-RUN git clone https://github.com/merrickluo/liberime.git
+WORKDIR /
+RUN git clone https://github.com/cloudqq/emacs-rime.git emacs-rime
+#RUN git clone https://github.com/merrickluo/liberime.git
 #RUN git clone  https://gitlab.com/liberime/liberime.git
-WORKDIR liberime/
-RUN make
+WORKDIR emacs-rime/
+RUN make lib
