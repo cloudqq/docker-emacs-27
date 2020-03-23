@@ -80,6 +80,7 @@ RUN curl -fsSL https://git.io/rime-install | bash
 #RUN git clone  https://gitlab.com/liberime/liberime.git
 #WORKDIR liberime/
 #RUN make
+<<<<<<< HEAD
 
 
 WORKDIR /
@@ -87,9 +88,14 @@ RUN git clone https://github.com/cloudqq/emacs-rime.git emacs-rime
 WORKDIR emacs-rime/
 RUN make lib
 
+=======
+WORKDIR /
+RUN git clone https://github.com/cloudqq/emacs-rime.git
+WORKDIR emacs-rime
+RUN make lib
+>>>>>>> bdfd76d1341e08cad696db9dbc29157ac3b810bb
 
 FROM ubuntu:18.04 as dev
-
 
 RUN apt-get update && \
     apt-get install -y \
@@ -134,10 +140,7 @@ RUN apt-get update && \
   libwebkit2gtk-4.0-dev \
     && rm -rf /var/lib/apt/lists/*
 
-ENV EMACS_BRANCH="master"
-ENV EMACS_VERSION="master"
-
-RUN git clone https://git.savannah.gnu.org/git/emacs.git /opt/emacs && cd /opt/emacs && git checkout emacs-27
+RUN git clone https://git.savannah.gnu.org/git/emacs.git /opt/emacs
 
 RUN cd /opt/emacs && \
     ./autogen.sh && \
@@ -227,16 +230,13 @@ RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
   libgoogle-glog-dev \
   libgtest-dev \
   systemd \
-  mingw-w64 \
   libwebkit2gtk-4.0 \
+  mingw-w64 \
   && rm -rf /tmp/* /var/lib/apt/lists/* /root/.cache/*
 
 
 # make sure we have libboost installed
 RUN dpkg -l | grep libboost
-
-ENV EMACS_BRANCH="master"
-ENV EMACS_VERSION="master"
 
 COPY --from=dev /root/.emacs.d /root/.emacs.d
 COPY --from=dev /usr/local /usr/local
@@ -284,8 +284,13 @@ COPY --from=builder3 /librime/build/bin/*.txt /usr/local/share/rime/
 COPY --from=builder3 /librime/build/bin/rime_dict_manager /usr/local/bin/
 COPY --from=builder3 /librime/build/bin/rime_deployer /usr/local/bin/
 COPY --from=builder3 /librime/build/lib/librime.so.1.5.3 /usr/local/lib/rime/
+<<<<<<< HEAD
 RUN cd /usr/local/lib/rime && ln -s librime.so.1.5g.3 librime.so.1 && ln -s librime.so.1 librime.so
 COPY --from=builder3 /emacs-rime/librime-emacs.so /usr/local/lib/rime/
+=======
+RUN cd /usr/local/lib/rime && ln -s librime.so.1.5g.3 librime.so.1 && ln -s librime.so.1 librime.so 
+COPY --from=builder3 /librime-emacs/librime-emacs.so /usr/local/lib/rime/
+>>>>>>> bdfd76d1341e08cad696db9dbc29157ac3b810bb
 COPY --from=builder3 /usr/lib/libopencc.so.1.0.0 /usr/lib
 RUN cd /usr/lib && ln -s  libopencc.so.1.1.0  libopencc.so.2 && ln -s libopencc.so.2 libopencc.so
 COPY --from=builder3 /usr/share/opencc/* /usr/share/opencc/
@@ -296,7 +301,15 @@ RUN echo '/usr/local/lib/rime' >> /etc/ld.so.conf.d/rime.conf && ldconfig
 ENV rime_dir=/usr/local/share/rime
 RUN curl -fsSL https://git.io/rime-install | bash -s -- prelude essay luna-pinyin double-pinyin
 
+<<<<<<< HEAD
 # add youtube download
+=======
+
+
+
+
+
+>>>>>>> bdfd76d1341e08cad696db9dbc29157ac3b810bb
 RUN curl -L https://yt-dl.org/downloads/latest/youtube-dl -o /usr/local/bin/youtube-dl && chmod +x /usr/local/bin/youtube-dl
 
 
