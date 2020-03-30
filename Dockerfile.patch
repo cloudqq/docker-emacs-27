@@ -1,0 +1,15 @@
+FROM ubuntu:latest
+MAINTAINER cloudqq <cloudqq@gmail.com>
+
+
+RUN sed --in-place --regexp-extended "s/archive\.ubuntu/mirrors\.aliyun/g" /etc/apt/sources.list \
+  && echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
+  && apt-get update \
+  && apt-get install git
+
+RUN git config --global user.email "cloudqq@gmail.com" && git config --global user.name "cloudqq"
+RUN git clone https://github.com/DogLooksGood/emacs-rime.git
+WORKDIR emacs-rime
+COPY patches .
+RUN git am -s < 0001-add-emacs-module-header.patch
+RUN make lib
