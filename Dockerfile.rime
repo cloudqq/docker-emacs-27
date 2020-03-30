@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 FROM ubuntu:latest AS builder4
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -41,11 +42,20 @@ FROM ubuntu:latest AS builder3
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g" /etc/apt/sources.list \
+=======
+# build rime
+FROM ubuntu:latest
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN sed --in-place --regexp-extended "s/archive\.ubuntu/mirrors.aliyun/g" /etc/apt/sources.list \
+>>>>>>> 09f87a2018efc6d125a59ea6d7f37bcddcec2e3b
   && echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
   && apt-get update \
   && apt-get install build-essential git cmake zlib1g-dev \
   pkg-config libglib2.0  libreadline-dev
 
+<<<<<<< HEAD
 RUN apt-get install doxygen  python-gi python3-gi python-xlib \
 libboost-dev libboost-filesystem-dev libboost-regex-dev libboost-system-dev libboost-locale-dev libgoogle-glog-dev libgtest-dev 
 
@@ -54,6 +64,22 @@ RUN git clone https://github.com/BYVoid/OpenCC.git
 WORKDIR OpenCC/
 RUN make
 RUN make install
+=======
+#RUN echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
+#  && apt-get update \
+#  && apt-get install build-essential git cmake zlib1g-dev \
+#  pkg-config libglib2.0  libreadline-dev
+
+RUN apt-get install doxygen  python-gi python3-gi python-xlib \
+  libboost-dev libboost-filesystem-dev libboost-regex-dev libboost-system-dev libboost-locale-dev libgoogle-glog-dev libgtest-dev \
+  opencc libopencc-dev libc6-dev   libyaml-cpp-dev   libleveldb-dev libmarisa-dev  curl
+
+# Manually install libopencc
+#RUN git clone --progress https://github.com/BYVoid/OpenCC.git
+#WORKDIR OpenCC/
+#RUN make
+#RUN make install
+>>>>>>> 09f87a2018efc6d125a59ea6d7f37bcddcec2e3b
 
 # Fix libgtest problem during compiling
 WORKDIR /usr/src/gtest
@@ -62,11 +88,20 @@ RUN make
 #copy or symlink libgtest.a and libgtest_main.a to your /usr/lib folder
 RUN cp *.a /usr/lib
 
+<<<<<<< HEAD
 RUN apt-get install libc6-dev   libyaml-cpp-dev   libleveldb-dev \
   libmarisa-dev  curl
 
 WORKDIR /
 RUN git clone https://github.com/rime/librime.git
+=======
+#RUN apt-get install libc6-dev   libyaml-cpp-dev   libleveldb-dev \
+#  libmarisa-dev  curl
+
+ENV ALL_PROXY socks5://172.31.0.29:1090
+WORKDIR /
+RUN git clone --progress https://github.com/rime/librime.git
+>>>>>>> 09f87a2018efc6d125a59ea6d7f37bcddcec2e3b
 WORKDIR librime/
 RUN make
 RUN make install
@@ -74,6 +109,7 @@ RUN make install
 ENV rime_dir=/usr/local/share/rime
 RUN curl -fsSL https://git.io/rime-install | bash
 
+<<<<<<< HEAD
 #RUN git clone  https://gitlab.com/liberime/liberime.git
 #WORKDIR liberime/
 #RUN make
@@ -302,3 +338,11 @@ ENV LC_CTYPE zh_CN.UTF-8
 
 ENTRYPOINT ["asEnvUser"]
 CMD ["bash", "-c", "emacs; /bin/bash"]
+=======
+WORKDIR /
+RUN git clone https://github.com/cloudqq/emacs-rime.git emacs-rime
+#RUN git clone https://github.com/merrickluo/liberime.git
+#RUN git clone  https://gitlab.com/liberime/liberime.git
+WORKDIR emacs-rime/
+RUN make lib
+>>>>>>> 09f87a2018efc6d125a59ea6d7f37bcddcec2e3b

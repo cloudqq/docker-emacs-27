@@ -19,7 +19,6 @@ stages:
     displayName: Build
     pool:
       vmImage: 'ubuntu-latest'
-      name: Default
     steps:
 
     - task: Docker@2
@@ -29,7 +28,7 @@ stages:
         dockerfile: 'Dockerfile'
         containerRegistry: 'dockerhub'
         repository: cloudqq/emacs-docker-27
-        imageName: "$(Build.Repository.Name):20200222"
+        imageName: "$(Build.Repository.Name):20200322"
         includeLatestTag: true
         tags: |
-          20200222
+          20200322
