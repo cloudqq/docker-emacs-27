@@ -82,6 +82,7 @@ RUN git clone https://github.com/DogLooksGood/emacs-rime.git
 WORKDIR emacs-rime
 COPY patches .
 RUN git am -s < 0001-add-emacs-module-header.patch
+RUN find .
 RUN make lib
 
 FROM ubuntu:18.04 as dev
