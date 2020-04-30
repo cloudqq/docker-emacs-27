@@ -1,0 +1,19 @@
+FROM rust:latest as builder
+
+
+RUN \
+  git clone --depth 1 https://github.com/BurntSushi/ripgrep \
+  && cd ripgrep \
+  && cargo build --release \
+  && ./target/release/rg --version \
+  && cp ./target/release/rg /usr/local/bin \
+  && cd / && git clone --depth 1 https://github.com/lotabout/skim.git \
+  && cd skim \
+  && cargo build --release \
+  && ./target/release/sk --version \
+  && cp ./target/release/sk /usr/local/bin
+
+FROM cloudqq/emacs-slim:20200430
+
+# copy tools to emacs
+COPY --from=builder /usr/local/bin /usr/local/bin
