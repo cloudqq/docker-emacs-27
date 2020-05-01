@@ -1,0 +1,439 @@
+commit c22ca772490beb5c0c758c5cd4744e0d01c7d39a (HEAD -> master)
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Tue Mar 31 13:37:33 2020 +0800
+
+    add new rime build
+
+commit 1b78db18c02cdcfbe3597acb0bd3e998aa5a403b (origin/master)
+Merge: 7bd1df7 09f87a2
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Mon Mar 30 23:50:58 2020 +0800
+
+    add dockerfile.rime
+
+commit 7bd1df73c6c29dc46a5b561a433bb88118ad6705
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Mon Mar 30 23:11:55 2020 +0800
+
+    add test rime docker
+
+commit 09f87a2018efc6d125a59ea6d7f37bcddcec2e3b
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Mon Mar 23 05:37:30 2020 +0000
+
+    fix merge issue
+
+commit dae0a0d0b74f552c33acfaaef7afa262ed11e337
+Merge: ddb18bf bdfd76d
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Mon Mar 23 05:26:26 2020 +0000
+
+    Merge branch 'master' of https://dev.azure.com/cloudqq0613/docker-emacs-27/_git/docker-emacs-27
+    
+    merge
+
+commit ddb18bfcc6e63be1c7f4b949f3f53b713a2613cd
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Mon Mar 23 05:24:52 2020 +0000
+
+    change to emacs-rime
+
+commit bdfd76d1341e08cad696db9dbc29157ac3b810bb
+Author: cloudqq@gmail.com <cloudqq@gmail.com>
+Date:   Sun Mar 22 14:50:22 2020 +0000
+
+    Update azure-pipelines.yml for Azure Pipelines
+
+commit 3a0ce163284bde14a293c87b60ce797247de615f
+Author: cloudqq@gmail.com <cloudqq@gmail.com>
+Date:   Sun Mar 22 14:46:44 2020 +0000
+
+    Set up CI with Azure Pipelines
+    
+    [skip ci]
+
+commit e7f7846cfdd246963f6a0de949b6cf41d4b36a23
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Sun Mar 22 22:45:30 2020 +0800
+
+    add librime-emacs
+
+commit 0a170d5cf7cccc5c8ed12c30540d9309b4c0475a
+Author: Mario Tao <mario@hesaitech.com>
+Date:   Thu Mar 12 18:54:09 2020 +0800
+
+    add rime testing
+
+commit ff8841f5861c0c3d8f96f17d78850af01003f792
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Wed Mar 11 15:06:28 2020 +0800
+
+    Create dockerimage.yml
+    
+    test github action
+
+commit e8b9be0b455289f721f1a7c0a65e3ab4b67c11b5
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Sun Feb 23 14:15:34 2020 +0800
+
+    add mingw-64 and remove emacs ENV
+
+commit be704e0e9ce0dda504e2ff8e8f1354904ff6b5f2
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Sun Feb 23 09:05:01 2020 +0800
+
+    remove mingw-w64
+
+commit 07d6d0c6754f1051affa0e90d48f2ff402b4292d
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Sat Feb 22 23:58:16 2020 +0800
+
+    change version to emacs-27
+
+commit f9f1779a824c4e3fcc118f7031587942b9865023
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Sat Feb 22 22:35:59 2020 +0800
+
+    add libwebkit2gtk-4.0
+
+commit cce829f60ab66f6e289489b296eaefbfe8a71241
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Sat Feb 22 22:29:37 2020 +0800
+
+    update tag
+
+commit c6df00c97669aae4722d9a42b2bf8bdf57214c2f
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Sat Feb 22 19:03:10 2020 +0800
+
+    add mingw-w64 for rust compiling under windows
+
+commit 496f6ce97f85d242ac9970ca265d79469e5daca2
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Wed Feb 5 21:25:37 2020 +0800
+
+    update
+
+commit fc8bb2daf84035a5f5e4c01886d0f6508ff330d7
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Sun Feb 2 23:06:50 2020 +0800
+
+    add script for building rust env
+
+commit c21018a5d806621f55cfa0aaecd307c23fa0bf5a
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Sat Jan 25 18:11:42 2020 +0800
+
+    add rust
+
+commit 57cbc79f8677cad9d071f2c92fdf479a3d7c9011
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Sat Jan 25 00:03:42 2020 +0800
+
+    update docker tag
+
+commit 226f8f79c6887c933b7b573010a02538c649f4df
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Fri Jan 24 23:56:38 2020 +0800
+
+    add fonts
+    
+    fonts-firacode
+
+commit 489166d121b048e82a59615804a9e22d5da0c91a
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Thu Jan 16 23:05:22 2020 +0800
+
+    fix libwebkit2gtk
+
+commit b102878143a511d293f5307c34758c8f7463c4ed
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Wed Jan 15 22:53:04 2020 +0800
+
+    update
+
+commit 2f4e7e2ba25c39d571357c1677f3387c7c0a5e6e
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Wed Jan 15 22:13:17 2020 +0800
+
+    update
+
+commit 6b8df3c167efd34731721432b8498412ff3a8b3a
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Wed Jan 15 22:10:53 2020 +0800
+
+    update
+
+commit b593f84836449d7200547657943b8fc6ff22d1f4
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Wed Jan 15 20:39:35 2020 +0800
+
+    add xwidgets
+
+commit fcea89e481e55c85b4569c34f1e2f19853e29b08
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Sat Jan 11 01:25:07 2020 +0000
+
+    update
+
+commit 1adceb108fce0696b1e3e5f5ebe238f44f58399a
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Fri Jan 10 16:20:39 2020 +0000
+
+    update
+
+commit 3aa3aa7328adb91f685420fde7b207e9f500f159
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Fri Jan 10 16:05:46 2020 +0000
+
+    update
+
+commit adcaea1a0089d87e19e4154100bb0148f658efcd
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Fri Jan 10 15:13:14 2020 +0000
+
+    update
+
+commit 628db9c94ab04d7b67a5ab9f97637fbeb368e2a0
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Fri Jan 10 15:09:44 2020 +0000
+
+    update Dockerfile
+
+commit b7e221c721c21c7e516b71f6c219f04d1e452081
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Fri Jan 10 15:03:15 2020 +0000
+
+    add eaf support
+
+commit a68a4bceee35c0f1480d36c0b35239dee8c5f57e
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Sun Jan 5 10:10:43 2020 +0000
+
+    add mu4e
+
+commit 2aa0b1e7b7215b6b290e7532f8104916202a0c6f
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Sun Jan 5 10:02:49 2020 +0000
+
+    add maildir-utils
+
+commit 3a3ba13fa6c09a800f4b34ebb0e1c9301d8c962f
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Sun Jan 5 06:36:08 2020 +0000
+
+    add ffmpeg
+
+commit 3cfa429a370b4da52316ed7fae3c13d4fe3a2351
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Thu Dec 26 15:21:44 2019 +0000
+
+    add xdotool for get window information
+
+commit 291c0c6a611334499815655ddc752539188cd2a6
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Wed Dec 25 15:18:24 2019 +0000
+
+    update Dockerfile2
+
+commit 30c2c69521bfc583143de2638efc5e620bb94ece
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Wed Dec 25 15:16:01 2019 +0000
+
+    update Dockerfile
+
+commit 89315288f548e945ac2502c9bdc67d19c659d1fc
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Wed Dec 25 15:09:24 2019 +0000
+
+    update dockerfile
+
+commit 11506dd0a6798c48567d7af5fec4131bcc2d14dc
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Wed Dec 25 14:16:01 2019 +0000
+
+    do not purge make tools
+
+commit 5761d4a4c79681a3f16334b31241f7c8aad2faca
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Wed Dec 25 12:36:19 2019 +0000
+
+    add missing package automake
+
+commit a9661f274bf67cb9d13445e82615d1d736d159a7
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Wed Dec 25 12:19:52 2019 +0000
+
+    add xrectsel
+
+commit 9c01e2615f9452997571538f0be539eea98a99c7
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Wed Dec 25 12:19:39 2019 +0000
+
+    add xrectsel
+
+commit ac5ad0f4005d00870f78e3b23f9839d594b81a54
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Wed Dec 25 05:18:06 2019 +0000
+
+    add gif record byzanz
+
+commit 6dab2c992834bd4c0123e471d905aabebe07a520
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Sun Dec 22 06:12:16 2019 +0000
+
+    remove default workspace enviroment
+
+commit 174cf5910e2612613192c9e525c015ef6f234550
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Sun Dec 22 06:05:10 2019 +0000
+
+    change to dynamic user and workspace
+    
+     USER=myname
+     WORKDIR=/mnt/workdir
+     docker run --rm -it \
+      -v $(pwd):${WORKDIR} \
+      -v /etc/localtime:/etc/localtime:ro \
+      -e UNAME="${USER}"\
+      -e GNAME="${USER}"\
+      -e UID="1000"\
+      -e GID="1000"\
+      -e UHOME="/home/${USER}" \
+      -e WORKSPACE="${WORKDIR}" \
+      -w "${WORKDIR}" \
+     testme2:latest sh
+
+commit 8b2a9aa6c51ded3bc9262b6ac42286e50c7b9678
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Sun Dec 22 05:50:52 2019 +0000
+
+    test flexiable user and workspace
+    
+    docker image have to install `sudo` package first.
+
+commit 089161738a94dec5c646a1d68f8d883b6d3d7747
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Sat Dec 21 11:33:01 2019 +0000
+
+    add fzf
+
+commit c86a16d3e5a6a2956c2dc5160b831ba75eb4eb0c
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Sat Dec 21 08:17:57 2019 +0000
+
+    fix error
+
+commit c72520700cb1cf73de27299a06f5d57ae464c24d
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Sat Dec 21 08:00:19 2019 +0000
+
+    add skim build
+
+commit f002a4b6dc3aeecf1aa087e2fd252c7037370eea
+Author: cloudqq <cloudqq@e4dev031604.cevkoocbmevujapmyrzivfryna.shax.internal.chinacloudapp.cn>
+Date:   Fri Dec 20 02:27:50 2019 +0000
+
+    change tag
+
+commit 2bd025e293aa24dabbf170c498b8184a26ab18b9
+Author: cloudqq <cloudqq@e4dev031604.cevkoocbmevujapmyrzivfryna.shax.internal.chinacloudapp.cn>
+Date:   Fri Dec 20 02:19:09 2019 +0000
+
+    add new pipelines
+
+commit 90e7323564766a05f1a731b60cf789e69e123e26
+Author: cloudqq <cloudqq@e4dev031604.cevkoocbmevujapmyrzivfryna.shax.internal.chinacloudapp.cn>
+Date:   Fri Dec 20 02:14:27 2019 +0000
+
+    remove comments
+
+commit f1a93883a08e97d468d73a6c50ec7a9438eac2a7
+Author: cloudqq <cloudqq@e4dev031604.cevkoocbmevujapmyrzivfryna.shax.internal.chinacloudapp.cn>
+Date:   Fri Dec 20 02:12:19 2019 +0000
+
+    add jdk support
+
+commit 8f521b52ace1481a93cd67aad99894b655b6ee89 (tag: release20191219-ok)
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Thu Dec 19 05:23:28 2019 +0000
+
+    add missing library
+
+commit 244a3849f13c399fb560f07fe130539e7899c03c
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Thu Dec 19 05:06:05 2019 +0000
+
+    add emacs binary
+
+commit ea283fafee65bd35fe19fd5162170e035ddc03ae
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Thu Dec 19 04:04:14 2019 +0000
+
+    remove emacs ppa
+
+commit 38c0c2b3799d8bd283ce6b378d2a091120e6800c
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Thu Dec 19 03:47:38 2019 +0000
+
+    update, remove package emacs26 emacs26-el
+
+commit b5a5a783f87e909c7f90863aaae917b5e06d39e6
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Thu Dec 19 03:22:07 2019 +0000
+
+    clone emacs repos
+
+commit 17a619c9a9d3ad0247ff1acc20ca37e97e443186
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Thu Dec 19 02:57:01 2019 +0000
+
+    add ripgrep rime font
+
+commit 6e6cb67bf2d68eb8fe5b6da2336b058c3f42bd21 (tag: release20191219)
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Thu Dec 19 02:28:58 2019 +0000
+
+    update add sudo
+
+commit ed0619f6cfaf0818776daf40ff42f45318fa55b7
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Thu Dec 19 02:09:17 2019 +0000
+
+    update
+
+commit afffbb01f48fa5f3c336c8ee0ea2b91753137b39
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Thu Dec 19 01:14:53 2019 +0000
+
+    update
+
+commit 742989d66343a340746f056d8a6899ad3dc197ff
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Thu Dec 19 01:13:09 2019 +0000
+
+    update, change pipeline pool to default
+
+commit 959685ca90ff9102577db852e0f9da2126e956e1
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Thu Dec 19 01:10:57 2019 +0000
+
+    update
+
+commit 5beacb0bf6000807d8d433d9099fbf25033c824a
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Thu Dec 19 00:41:05 2019 +0000
+
+    add env user
+
+commit 5aff4062b08a324a66712bd32839b6ec6cdc6f5c
+Author: cloudqq <cloudqq@gmail.com>
+Date:   Wed Dec 18 15:04:43 2019 +0000
+
+    add azure pipeline
+
+commit 58c9f267816ba85f64339c234de74b4bba817379
+Author: Ubuntu <cloudqq@e4dev031604.cevkoocbmevujapmyrzivfryna.shax.internal.chinacloudapp.cn>
+Date:   Wed Dec 18 14:52:45 2019 +0000
+
+    init

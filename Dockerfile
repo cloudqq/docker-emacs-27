@@ -280,7 +280,7 @@ COPY --from=builder3 /librime/build/bin/rime_dict_manager /usr/local/bin/
 COPY --from=builder3 /librime/build/bin/rime_deployer /usr/local/bin/
 COPY --from=builder3 /librime/build/lib/librime.so.1.5.3 /usr/local/lib/rime/
 
-RUN cd /usr/local/lib/rime && ln -s librime.so.1.5g.3 librime.so.1 && ln -s librime.so.1 librime.so
+RUN cd /usr/local/lib/rime && ln -s librime.so.1.5.3 librime.so.1 && ln -s librime.so.1 librime.so
 
 COPY --from=builder3 /emacs-rime/librime-emacs.so /usr/local/lib/rime/
 

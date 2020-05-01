@@ -55,7 +55,7 @@ COPY --from=builder /librime/build/bin/rime_dict_manager /usr/local/bin/
 COPY --from=builder /librime/build/bin/rime_deployer /usr/local/bin/
 COPY --from=builder /librime/build/lib/librime.so.1.5.3 /usr/local/lib/rime/
 #
-RUN cd /usr/local/lib/rime && ln -s librime.so.1.5g.3 librime.so.1 && ln -s librime.so.1 librime.so
+RUN cd /usr/local/lib/rime && ln -s librime.so.0.5.3 librime.so.1 && ln -s librime.so.1 librime.so
 #
 #
 COPY --from=builder /usr/local/lib/libopencc.so.1.0.0 /usr/local/lib
