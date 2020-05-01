@@ -157,8 +157,16 @@ RUN git clone https://github.com/ncopa/su-exec.git /su-exec \
 
 FROM ubuntu:latest
 
-ENV emacs-runtime-depends="libtiff5 libpng16-16 libgif7 libsm6 libasound2 libxpm4 xaw3dg  libxrender1 \
+ENV DEBIAN_FRONTEND noninteractive
+
+ENV emacs_runtime_depends="libtiff5 libpng16-16 libgif7 libsm6 libasound2 libxpm4 xaw3dg  libxrender1 \
 librsvg2-2 libdbus-1-3  libxrandr2 libxinerama1 libxfixes3 libgpm2 libotf0 libm17n-0 liblcms2-2 libjansson4"
+ENV utils_depends="sudo curl wget git"
+
+# emacs runtime
+RUN apt-get update && apt-get -y install ${utils_depends} \
+    ${emacs_runtime_depends} \
+    && rm -rf /var/lib/apt/lists/*
 
 #install rime
 COPY --from=builder /librime/build/bin/*.yaml /usr/local/share/rime/
@@ -204,8 +212,6 @@ COPY asEnvUser /usr/local/sbin/
 RUN chown root /usr/local/sbin/asEnvUser \
   && chmod 700  /usr/local/sbin/asEnvUser
 
-# emacs runtime
-RUN apt-get update && apt-get -y install ${emacs-runtime-depends} sudo
 
 RUN emacs --version
 
