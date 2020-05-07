@@ -1,4 +1,4 @@
-FROM ubuntu:latest AS builder
+FROM ubuntu:18.04 AS builder
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -23,7 +23,18 @@ RUN cmake CMakeLists.txt
 RUN make
 #copy or symlink libgtest.a and libgtest_main.a to your /usr/lib folder
 
-RUN cp /usr/src/googletest/googletest/lib/*.a /usr/lib
+# ubuntu 18.04
+#/usr/src/googletest/googletest/libgtest_main.a
+#/usr/src/googletest/googletest/libgtest.a
+
+# ubuntu 20.04
+#/usr/src/googletest/googletest/lib/libgtest_main.a
+#/usr/src/googletest/googletest/lib/libgtest.a
+
+
+#RUN find /usr/src/googletest -name "*.a"
+
+RUN cp /usr/src/googletest/googletest/*.a /usr/lib
 
 RUN apt-get install libc6-dev   libyaml-cpp-dev   libleveldb-dev \
   libmarisa-dev  curl
@@ -71,7 +82,7 @@ RUN \
 
 
 
-FROM ubuntu:latest AS builder-emacs
+FROM ubuntu:18.04 AS builder-emacs
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -155,12 +166,13 @@ RUN git clone https://github.com/ncopa/su-exec.git /su-exec \
 
 
 
-FROM ubuntu:latest
+FROM ubuntu:18.04
 
 ENV DEBIAN_FRONTEND noninteractive
 
 ENV emacs_runtime_depends="libtiff5 libpng16-16 libgif7 libsm6 libasound2 libxpm4 xaw3dg  libxrender1 \
-librsvg2-2 libdbus-1-3  libxrandr2 libxinerama1 libxfixes3 libgpm2 libotf0 libm17n-0 liblcms2-2 libjansson4"
+librsvg2-2 libdbus-1-3  libxrandr2 libxinerama1 libxfixes3 libgpm2 libotf0 libm17n-0 liblcms2-2 libjansson4 fonts-wqy-zenhei fonts-wqy-microhei ttf-wqy-microhei ttf-wqy-zenhei"
+ENV rime_runtime_depends="libyaml-cpp0.5v5 libleveldb1v5 libmarisa0 libboost-regex1.65.1 libboost-system1.65 libgoogle-glog0v5 libboost-filesystem1.65.1"
 ENV utils_depends="sudo curl wget git"
 ENV extra_x2go="x2goserver x2goserver-xsession openbox obconf  conky nitrogen rxvt-unicode-256color"
 
@@ -168,7 +180,22 @@ ENV extra_x2go="x2goserver x2goserver-xsession openbox obconf  conky nitrogen rx
 RUN apt-get update && apt-get -y install ${utils_depends} \
     ${emacs_runtime_depends} \
     ${extra_x2go} \
+    ${rime_runtime_depends} \
     && rm -rf /var/lib/apt/lists/*
+
+
+# install fonts
+
+ENV FONT_HOME="/usr/share/fonts"
+
+RUN mkdir -p "${FONT_HOME}/adobe-fonts/source-code-pro"
+
+RUN (git clone \
+  --branch release \
+  --depth 1 \
+  'https://github.com/adobe-fonts/source-code-pro.git' \
+  "$FONT_HOME/adobe-fonts/source-code-pro" && \
+  fc-cache -f -v "$FONT_HOME/adobe-fonts/source-code-pro")
 
 #install rime
 COPY --from=builder /librime/build/bin/*.yaml /usr/local/share/rime/
@@ -185,6 +212,10 @@ RUN cd /usr/lib && ln -s  libopencc.so.1.1.0  libopencc.so.2 && ln -s libopencc.
 COPY --from=builder /usr/local/share/opencc/* /usr/local/share/opencc/
 COPY --from=builder /usr/local/bin/opencc* /usr/local/bin/
 COPY --from=builder /emacs-rime/librime-emacs.so /usr/local/lib/rime/
+
+
+
+
 #
 RUN echo '/usr/local/lib/rime' >> /etc/ld.so.conf.d/rime.conf && ldconfig
 #

@@ -57,6 +57,10 @@ else
 	fi
 fi
 
+if [ -f ${UHOME}/.Xauthority ]; then
+	rm -rf ${UHOME}/.Xauthority
+fi
+
 mkdir -p "${WORKSPACE}"
 chown "${UID}":"${GID}" "${WORKSPACE}"
 cd "${WORKSPACE}"
