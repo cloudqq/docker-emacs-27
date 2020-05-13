@@ -4,6 +4,7 @@ USER=cloudqq
 WORKDIR=/mnt/workspace
 VOL_DEV_VOLUME=vol_rust_runtime6
 VOL_DEV_PATH=/usr/local/rust
+PROXY=http://172.31.0.29:1088
 
 docker volume create $VOL_DEV_VOLUME
 
@@ -12,9 +13,8 @@ docker run -ti --rm  \
  --privileged \
  -v ${VOL_DEV_VOLUME}:${VOL_DEV_PATH} \
  -v $(pwd):${WORKDIR} \
- -v /etc/localtime:/etc/localtime:ro \
- -e http_proxy=http://10.3.4.10:1088 \
- -e https_proxy=http://10.3.4.10:1088 \
+ -e http_proxy=$PROXY \
+ -e https_proxy=$PROXY \
  -e privileged \
  -e UNAME="${USER}"\
  -e GNAME="${USER}"\
