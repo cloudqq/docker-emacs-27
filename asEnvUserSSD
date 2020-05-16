@@ -17,6 +17,7 @@ if ! id "${UNAME}" >/dev/null 2>&1; then
 	## override already existing users with the same IDs
 	echo -e "${UNAME}:x:${UID}:${GID}:${UNAME},,,:${UHOME}:${SHELL}\n$(cat /etc/passwd)" > /etc/passwd
 	echo "${UNAME}::17032:0:99999:7:::" >> /etc/shadow
+
 fi
 
 ## Make sure that user is sudoer
@@ -33,6 +34,8 @@ if [ $? -ne 0 ]; then
 elif [[ ${u_group} != *"${UNAME}"* ]]; then
 	sed -i -e "s/${u_group}/${u_group},${UNAME}/g" /etc/group
 fi
+
+
 
 ## Make sure that the user owns home directory
 if [ -d "${UHOME}" ]
@@ -61,6 +64,17 @@ if [ -f ${UHOME}/.Xauthority ]; then
 	rm -rf ${UHOME}/.Xauthority
 fi
 
+
+
+## change password
+if [ -z "$PASSWORD" ]; then
+	PASSWORD="$UNAME"
+fi	
+echo "$UNAME:$PASSWORD" | chpasswd
+
+PASSWORD=""
+
+
 mkdir -p "${WORKSPACE}"
 chown "${UID}":"${GID}" "${WORKSPACE}"
 cd "${WORKSPACE}"
@@ -69,11 +83,14 @@ if [ ! -d "/run/sshd" ];then
 	mkdir -p /run/sshd
 fi
 
+
+
 /usr/sbin/sshd -D
 
 su-exec "${UNAME}" "$@"
 
 # Create ssh "client" key
 # http://stackoverflow.com/a/20977657
+
 
 
