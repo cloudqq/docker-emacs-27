@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-USER=myname
+USER=cloudqq
 WORKDIR=/mnt/workdir
 docker run --rm -it \
  -v $(pwd):${WORKDIR} \
@@ -12,4 +12,4 @@ docker run --rm -it \
  -e UHOME="/home/${USER}" \
  -e WORKSPACE="${WORKDIR}" \
  -w "${WORKDIR}" \
-testme2:latest sh
+testemacs:latest sh
