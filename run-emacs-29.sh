@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+IMAGE=cloudqq/emacs-slim:20230718
 USER=cloudqq
 WORKDIR=/mnt/workdir
 docker run --rm -it \
@@ -12,4 +13,4 @@ docker run --rm -it \
  -e UHOME="/home/${USER}" \
  -e WORKSPACE="${WORKDIR}" \
  -w "${WORKDIR}" \
-testemacs:latest sh
+$IMAGE sh

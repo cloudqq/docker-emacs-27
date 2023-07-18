@@ -1,0 +1,152 @@
+FROM ubuntu:latest AS builder
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g" /etc/apt/sources.list \
+  && echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
+  && apt-get update \
+  && apt-get install build-essential git cmake zlib1g-dev \
+  pkg-config libglib2.0  libreadline-dev
+
+
+FROM rust:latest as builder-tools
+RUN \
+  git clone --depth 1 https://github.com/BurntSushi/ripgrep \
+  && cd ripgrep \
+  && cargo build --release \
+  && ./target/release/rg --version \
+  && cp ./target/release/rg /usr/local/bin \
+  && cd / && git clone --depth 1 https://github.com/lotabout/skim.git \
+  && cd skim \
+  && cargo build --release \
+  && ./target/release/sk --version \
+  && cp ./target/release/sk /usr/local/bin
+
+FROM ubuntu:latest AS builder-emacs
+
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g" /etc/apt/sources.list \
+  && echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
+    && apt-get update && \
+    apt-get install -y \
+		libtree-sitter-dev \
+            autoconf \
+            automake \
+            autotools-dev \
+            build-essential \
+            curl \
+            dpkg-dev \
+            git \
+            gnupg \
+            imagemagick \
+            ispell \
+            libacl1-dev \
+            libasound2-dev \
+            libcanberra-gtk3-module \
+            liblcms2-dev \
+            libdbus-1-dev \
+            libgif-dev \
+            libgnutls28-dev \
+            libgpm-dev \
+            libgtk-3-dev \
+            libjansson-dev \
+            libjpeg-dev \
+            liblockfile-dev \
+            libm17n-dev \
+            libmagick++-6.q16-dev \
+            libncurses5-dev \
+            libotf-dev \
+            libpng-dev \
+            librsvg2-dev \
+            libselinux1-dev \
+            libtiff-dev \
+            libxaw7-dev \
+            libxml2-dev \
+            openssh-client \
+            texinfo \
+            xaw3dg-dev \
+	gcc-10 g++-10 libgccjit0 libgccjit-10-dev \
+  zlib1g-dev \
+  libwebkit2gtk-4.0 \
+  libwebkit2gtk-4.0-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN git clone https://git.savannah.gnu.org/git/emacs.git /opt/emacs
+
+RUN cd /opt/emacs && git checkout emacs-29 \
+    && export CC=/usr/bin/gcc-10 CXX=/usr/bin/g++-10 && ./autogen.sh && \
+    ./configure --with-modules --with-x-toolkit=gtk3 --with-json --with-xwidgets --with-gif --with-png --with-jpeg --with-rsvg --with-tiff --with-tree-sitter --with-native-compilation=aot && \
+    make PREFIX=/usr/local -j `nproc` && \
+    make install
+
+#ENV PATH="/root/.cask/bin:$PATH"
+#RUN curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
+
+#RUN mkdir -p /root/.emacs.d/elpa/gnupg && \
+#    chmod 700 /root/.emacs.d/elpa/gnupg && \
+#    gpg -q --homedir /root/.emacs.d/elpa/gnupg -k | grep 81E42C40 || \
+#    gpg --keyserver hkp://ipv4.pool.sks-keyservers.net --homedir /root/.emacs.d/elpa/gnupg --recv-keys 066DAFCB81E42C40
+
+
+
+
+FROM ubuntu:18.04 as builder-exec
+
+RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g" /etc/apt/sources.list \
+  && echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
+  && apt-get update \
+  && apt-get install build-essential git 
+
+RUN git clone https://github.com/ncopa/su-exec.git /su-exec \
+  && cd /su-exec \
+  && make \
+  && chmod 770 su-exec
+
+
+
+
+
+FROM ubuntu:latest
+
+ENV DEBIAN_FRONTEND noninteractive
+
+ENV emacs_runtime_depends="libtiff5 libpng16-16 libgif7 libsm6 libasound2 libxpm4 xaw3dg  libxrender1 \
+librsvg2-2 libdbus-1-3  libxrandr2 libxinerama1 libxfixes3 libgpm2 libm17n-0 liblcms2-2 libjansson4  libgtk-3-0 libwebkit2gtk-4.0 libgccjit0 \
+libtree-sitter0"
+ENV utils_depends="sudo curl wget git"
+
+# emacs runtime
+RUN apt-get -o Acquire::Check-Valid-Util=false -o Acquire::Check-Date=false update && apt-get -y install ${utils_depends} \
+    ${emacs_runtime_depends} \
+    && rm -rf /var/lib/apt/lists/*
+
+
+# copy tools to emacs sk, rg
+COPY --from=builder-tools /usr/local/bin /usr/local/bin
+
+
+# copy emacs 
+
+COPY --from=builder-emacs /usr/local/bin /usr/local/bin
+COPY --from=builder-emacs /usr/local/share/emacs /usr/local/share/emacs
+COPY --from=builder-emacs /usr/local/lib/emacs /usr/local/lib/emacs
+COPY --from=builder-emacs /usr/local/libexec /usr/local/libexec
+
+
+
+# copy su-exec  from builder-exec
+
+COPY --from=builder-exec /su-exec/su-exec /usr/local/sbin
+COPY asEnvUser /usr/local/sbin/
+
+# Only for sudoers
+RUN chown root /usr/local/sbin/asEnvUser \
+  && chmod 700  /usr/local/sbin/asEnvUser
+
+
+#RUN emacs --version
+
+ENTRYPOINT ["asEnvUser"]
+CMD ["bash", "-c", "emacs; /bin/bash"]
+
