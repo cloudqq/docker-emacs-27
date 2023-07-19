@@ -1,4 +1,4 @@
-FROM ubuntu:latest AS builder
+FROM ubuntu:20.04 AS builder
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -6,7 +6,43 @@ RUN sed --in-place --regexp-extended "s/archive\.ubuntu/azure\.archive\.ubuntu/g
   && echo 'APT::Get::Assume-Yes "true";' >> /etc/apt/apt.conf \
   && apt-get update \
   && apt-get install build-essential git cmake zlib1g-dev \
-  pkg-config libglib2.0  libreadline-dev
+  pkg-config libglib2.0  libreadline-dev \
+  libboost-all-dev  libgoogle-glog-dev libgtest-dev doxygen python
+
+# Manually install libopencc
+RUN git clone https://github.com/BYVoid/OpenCC.git
+RUN cd OpenCC && git checkout ver.1.0.5 \
+&& make PREFIX=/usr/local -j `nproc` && make PREFIX=/usr/local install 
+
+# Fix libgtest problem during compiling
+WORKDIR /usr/src/gtest
+RUN cmake CMakeLists.txt
+RUN make
+#copy or symlink libgtest.a and libgtest_main.a to your /usr/lib folder
+
+RUN cp /usr/src/googletest/googletest/lib/*.a /usr/lib
+
+RUN apt-get install libc6-dev   libyaml-cpp-dev   libleveldb-dev \
+  libmarisa-dev  curl
+
+ENV rime_dir=/usr/local/share/rime
+RUN curl -fsSL https://git.io/rime-install | bash -s -- prelude essay luna-pinyin double-pinyin
+
+WORKDIR /
+RUN git clone https://github.com/rime/librime.git
+WORKDIR librime/
+RUN make PREFIX=/usr/local -j `nproc`
+RUN make PREFIX=/usr/local install
+
+WORKDIR /
+RUN git config --global user.email "cloudqq@gmail.com" && git config --global user.name "cloudqq"
+RUN git clone https://github.com/DogLooksGood/emacs-rime.git
+WORKDIR emacs-rime/
+COPY patches .
+RUN git am -s < 0001-add-emacs-module-header.patch
+RUN gcc -fPIC -O2 -Wall -shared lib.c -o librime-emacs.so -I. -lrime
+RUN find . && echo $(pwd)
+
 
 
 FROM rust:latest as builder-tools
@@ -113,7 +149,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 ENV emacs_runtime_depends="libtiff5 libpng16-16 libgif7 libsm6 libasound2 libxpm4 xaw3dg  libxrender1 \
 librsvg2-2 libdbus-1-3  libxrandr2 libxinerama1 libxfixes3 libgpm2 libm17n-0 liblcms2-2 libjansson4  libgtk-3-0 libwebkit2gtk-4.0 libgccjit0 \
-libtree-sitter0"
+libtree-sitter0 locales language-pack-zh-hans" 
 ENV utils_depends="sudo curl wget git"
 
 # emacs runtime
@@ -121,7 +157,18 @@ RUN apt-get -o Acquire::Check-Valid-Util=false -o Acquire::Check-Date=false upda
     ${emacs_runtime_depends} \
     && rm -rf /var/lib/apt/lists/*
 
+ENV FONT_HOME="/usr/share/fonts"
 
+RUN mkdir -p "${FONT_HOME}/adobe-fonts/source-code-pro"
+RUN (git clone \
+	--branch release \
+	--depth 1 \
+	http://github.com/adobe-fonts/source-code-pro.git \
+	"$FONT_HOME/adobe-fonts/source-code-pro" \
+	&& fc-cache -f -v "$FONT_HOME/adobe-fonts/source-code-pro")
+
+
+RUN mkdir -p /usr/local/lib/rime
 # copy tools to emacs sk, rg
 COPY --from=builder-tools /usr/local/bin /usr/local/bin
 
@@ -134,6 +181,33 @@ COPY --from=builder-emacs /usr/local/lib/emacs /usr/local/lib/emacs
 COPY --from=builder-emacs /usr/local/libexec /usr/local/libexec
 
 
+# rime
+
+#install rime
+COPY --from=builder /librime/build/bin/*.yaml /usr/local/share/rime/
+COPY --from=builder /librime/build/bin/*.txt /usr/local/share/rime/
+COPY --from=builder /librime/build/bin/rime_dict_manager /usr/local/bin/
+COPY --from=builder /librime/build/bin/rime_deployer /usr/local/bin/
+COPY --from=builder /librime/build/lib/librime.so.1.8.5 /usr/local/lib/rime/
+
+#
+RUN cd /usr/local/lib/rime && ln -s librime.so.1.8.5 librime.so.1 && ln -s librime.so.1 librime.so
+#
+#
+COPY --from=builder /usr/local/lib/libopencc.so.1.0.0 /usr/local/lib
+RUN cd /usr/lib && ln -s  libopencc.so.1.1.0  libopencc.so.2 && ln -s libopencc.so.2 libopencc.so
+COPY --from=builder /usr/local/share/opencc/* /usr/local/share/opencc/
+COPY --from=builder /usr/local/bin/opencc* /usr/local/bin/
+COPY --from=builder /emacs-rime/librime-emacs.so /usr/local/lib/rime/
+#
+RUN echo '/usr/local/lib/rime' >> /etc/ld.so.conf.d/rime.conf && ldconfig
+#
+ENV rime_dir=/usr/local/share/rime
+RUN curl -fsSL https://git.io/rime-install | bash -s -- prelude essay luna-pinyin double-pinyin
+#
+#
+
+
 
 # copy su-exec  from builder-exec
 
@@ -144,6 +218,10 @@ COPY asEnvUser /usr/local/sbin/
 RUN chown root /usr/local/sbin/asEnvUser \
   && chmod 700  /usr/local/sbin/asEnvUser
 
+
+RUN echo 'LC_ALL=zh_CN.UTF-8' > /etc/default/locale && \
+  echo 'LANG=zh_CN.UTF-8' >> /etc/default/locale && \
+  locale-gen zh_CN.UTF-8
 
 #RUN emacs --version
 
